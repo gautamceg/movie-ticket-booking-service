@@ -3,11 +3,11 @@
  */
 package com.mtbs.service.impl;
 
-import com.mtbs.adapter.MovieAdapter;
+import com.mtbs.mapper.MovieMapper;
 import com.mtbs.dto.MovieDto;
 import com.mtbs.exception.DuplicateRecordException;
-import com.mtbs.model.MovieEntity;
-import com.mtbs.repository.MovieRepository;
+import com.mtbs.dao.entity.MovieEntity;
+import com.mtbs.dao.repository.MovieRepository;
 import com.mtbs.service.MovieService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +16,7 @@ import org.springframework.stereotype.Service;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.Optional;
 
-/**
- * @author naveen
- *
- * @date 05-Sep-2019
- */
+
 @Log4j2
 @Service
 public class MovieServiceImpl implements MovieService {
@@ -37,13 +33,13 @@ public class MovieServiceImpl implements MovieService {
 
 		log.info("Adding New Movie: " + movieDto);
 
-		MovieEntity movieEntity = MovieAdapter.toEntity(movieDto);
+		MovieEntity movieEntity = MovieMapper.toEntity(movieDto);
 
 		movieEntity = movieRepository.save(movieEntity);
 
 		log.info("Added New Movie [id: " + movieEntity.getId() + ", Name: " + movieEntity.getName() + ", Language: " + movieEntity.getLanguage() + "]");
 
-		return MovieAdapter.toDto(movieEntity);
+		return MovieMapper.toDto(movieEntity);
 	}
 
 	@Override
@@ -57,7 +53,7 @@ public class MovieServiceImpl implements MovieService {
 			throw new EntityNotFoundException("Movie Not Found with ID: " + id);
 		}
 
-		return MovieAdapter.toDto(movieEntity.get());
+		return MovieMapper.toDto(movieEntity.get());
 	}
 
 }

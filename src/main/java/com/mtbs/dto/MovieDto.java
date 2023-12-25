@@ -14,11 +14,7 @@ import lombok.ToString;
 
 import java.time.LocalDate;
 
-/**
- * @author naveen
- *
- * @date 05-Sep-2019
- */
+
 @Getter
 @Setter
 @NoArgsConstructor

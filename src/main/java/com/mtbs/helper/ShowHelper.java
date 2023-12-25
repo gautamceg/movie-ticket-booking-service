@@ -3,9 +3,9 @@
  */
 package com.mtbs.helper;
 
-import com.mtbs.model.MovieEntity;
-import com.mtbs.model.ShowEntity;
-import com.mtbs.model.TheaterEntity;
+import com.mtbs.dao.entity.MovieEntity;
+import com.mtbs.dao.entity.ShowEntity;
+import com.mtbs.dao.entity.TheaterEntity;
 import lombok.experimental.UtilityClass;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
@@ -17,11 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-/**
- * @author naveen
- *
- * @date 05-Sep-2019
- */
+
 @UtilityClass
 public class ShowHelper {
 

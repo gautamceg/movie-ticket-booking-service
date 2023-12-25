@@ -3,11 +3,11 @@
  */
 package com.mtbs.service.impl;
 
-import com.mtbs.adapter.UserAdapter;
+import com.mtbs.mapper.UserMapper;
 import com.mtbs.dto.UserDto;
 import com.mtbs.exception.DuplicateRecordException;
-import com.mtbs.model.UserEntity;
-import com.mtbs.repository.UserRepository;
+import com.mtbs.dao.entity.UserEntity;
+import com.mtbs.dao.repository.UserRepository;
 import com.mtbs.service.UserService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +16,7 @@ import org.springframework.stereotype.Service;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.Optional;
 
-/**
- * @author naveen
- *
- * @date 05-Sep-2019
- */
+
 @Log4j2
 @Service
 public class UserServiceImpl implements UserService {
@@ -37,13 +33,13 @@ public class UserServiceImpl implements UserService {
 
 		log.info("Adding New User: " + userDto);
 
-		UserEntity userEntity = UserAdapter.toEntity(userDto);
+		UserEntity userEntity = UserMapper.toEntity(userDto);
 
 		userEntity = userRepository.save(userEntity);
 
 		log.info("Added New User [id: " + userEntity.getId() + ", Mobile: " + userEntity.getMobile() + "]");
 
-		return UserAdapter.toDto(userEntity);
+		return UserMapper.toDto(userEntity);
 	}
 
 	@Override
@@ -58,7 +54,7 @@ public class UserServiceImpl implements UserService {
 			throw new EntityNotFoundException("User Not Found with ID: " + id);
 		}
 
-		return UserAdapter.toDto(userEntity.get());
+		return UserMapper.toDto(userEntity.get());
 	}
 
 }

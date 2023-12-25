@@ -3,20 +3,20 @@
  */
 package com.mtbs.service.impl;
 
-import com.mtbs.adapter.ShowAdapter;
+import com.mtbs.mapper.ShowMapper;
 import com.mtbs.dto.PageResponse;
 import com.mtbs.dto.ShowDto;
 import com.mtbs.exception.DependencyException;
 import com.mtbs.helper.ShowHelper;
-import com.mtbs.model.MovieEntity;
-import com.mtbs.model.ShowEntity;
-import com.mtbs.model.ShowSeatsEntity;
-import com.mtbs.model.TheaterEntity;
-import com.mtbs.model.TheaterSeatsEntity;
-import com.mtbs.repository.MovieRepository;
-import com.mtbs.repository.ShowRepository;
-import com.mtbs.repository.ShowSeatsRepository;
-import com.mtbs.repository.TheaterRepository;
+import com.mtbs.dao.entity.MovieEntity;
+import com.mtbs.dao.entity.ShowEntity;
+import com.mtbs.dao.entity.ShowSeatsEntity;
+import com.mtbs.dao.entity.TheaterEntity;
+import com.mtbs.dao.entity.TheaterSeatsEntity;
+import com.mtbs.dao.repository.MovieRepository;
+import com.mtbs.dao.repository.ShowRepository;
+import com.mtbs.dao.repository.ShowSeatsRepository;
+import com.mtbs.dao.repository.TheaterRepository;
 import com.mtbs.service.ShowService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,7 +65,7 @@ public class ShowServiceImpl implements ShowService {
 
 		log.info("Adding New Show: " + showDto);
 
-		ShowEntity showEntity = ShowAdapter.toEntity(showDto);
+		ShowEntity showEntity = ShowMapper.toEntity(showDto);
 
 		showEntity.setMovie(optionalMovie.get());
 		showEntity.setTheater(optionalTheater.get());
@@ -79,7 +79,7 @@ public class ShowServiceImpl implements ShowService {
 
 		log.info("Successfully Added New Show [ID: " + showEntity.getId() + ", ShowDate: " + showEntity.getShowDate() + ", ShowTime: " + showEntity.getShowTime() + "]");
 
-		return ShowAdapter.toDto(showEntity);
+		return ShowMapper.toDto(showEntity);
 	}
 
 	private List<ShowSeatsEntity> generateShowSeats(List<TheaterSeatsEntity> theaterSeatsEntities, ShowEntity showEntity) {
@@ -121,7 +121,7 @@ public class ShowServiceImpl implements ShowService {
 			pageResponse.setTotalPages(showsPage.getTotalPages());
 			pageResponse.setTotalRecords(showsPage.getTotalElements());
 
-			pageResponse.setData(ShowAdapter.toDto(showsPage.getContent()));
+			pageResponse.setData(ShowMapper.toDto(showsPage.getContent()));
 		}
 
 		return pageResponse;

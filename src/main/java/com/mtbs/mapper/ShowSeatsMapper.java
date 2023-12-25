@@ -1,8 +1,8 @@
 
-package com.mtbs.adapter;
+package com.mtbs.mapper;
 
 import com.mtbs.dto.ShowSeatsDto;
-import com.mtbs.model.ShowSeatsEntity;
+import com.mtbs.dao.entity.ShowSeatsEntity;
 import lombok.experimental.UtilityClass;
 import org.apache.commons.collections4.CollectionUtils;
 
@@ -12,12 +12,12 @@ import java.util.stream.Collectors;
 
 
 @UtilityClass
-public class ShowSeatsAdapter {
+public class ShowSeatsMapper {
 
 	public static List<ShowSeatsDto> toDto(List<ShowSeatsEntity> seatsEntities) {
 
 		if (CollectionUtils.isNotEmpty(seatsEntities)) {
-			return seatsEntities.stream().map(ShowSeatsAdapter::toDto).collect(Collectors.toList());
+			return seatsEntities.stream().map(ShowSeatsMapper::toDto).collect(Collectors.toList());
 		}
 
 		return new ArrayList<>();

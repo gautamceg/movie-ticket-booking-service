@@ -1,69 +1,67 @@
 /**
  * 
  */
-package com.mtbs.model;
+package com.mtbs.dao.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mtbs.enums.SeatType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EntityListeners;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import java.util.Date;
-import java.util.List;
 
 
 @Getter
 @Setter
 @Entity
-@EntityListeners(value = { AuditingEntityListener.class })
-@Table(name = "tickets")
+@Table(name = "show_seats")
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
 @ToString
-public class TicketEntity {
+public class ShowSeatsEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	@Column(name = "alloted_seats", nullable = false)
-	private String allottedSeats;
+	@Column(name = "seat_number", nullable = false)
+	private String seatNumber;
 
-	@Column(name = "amount", nullable = false)
-	private double amount;
+	@Column(name = "rate", nullable = false)
+	private int rate;
 
-	@CreatedDate
+	@Enumerated(EnumType.STRING)
+	@Column(name = "seat_type", nullable = false)
+	private SeatType seatType;
+
+	@Column(name = "is_booked", columnDefinition = "bit(1) default 0", nullable = false)
+	private boolean booked;
+
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "booked_at", nullable = false)
+	@Column(name = "booked_at")
 	private Date bookedAt;
-
-	@ManyToOne
-	@JsonIgnore
-	private UserEntity user;
 
 	@ManyToOne
 	@JsonIgnore
 	private ShowEntity show;
 
-	@OneToMany(mappedBy = "seatNumber", cascade = CascadeType.ALL)
+	@ManyToOne
 	@JsonIgnore
-	private List<ShowSeatsEntity> seats;
+	private TicketEntity ticket;
 }

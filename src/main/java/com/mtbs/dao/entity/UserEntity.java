@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.mtbs.model;
+package com.mtbs.dao.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

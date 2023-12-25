@@ -1,8 +1,8 @@
 
-package com.mtbs.adapter;
+package com.mtbs.mapper;
 
 import com.mtbs.dto.ShowDto;
-import com.mtbs.model.ShowEntity;
+import com.mtbs.dao.entity.ShowEntity;
 import lombok.experimental.UtilityClass;
 import org.apache.commons.collections4.CollectionUtils;
 
@@ -12,12 +12,12 @@ import java.util.stream.Collectors;
 
 
 @UtilityClass
-public class ShowAdapter {
+public class ShowMapper {
 
 	public static List<ShowDto> toDto(List<ShowEntity> showEntities) {
 
 		if (CollectionUtils.isNotEmpty(showEntities)) {
-			return showEntities.stream().map(ShowAdapter::toDto).collect(Collectors.toList());
+			return showEntities.stream().map(ShowMapper::toDto).collect(Collectors.toList());
 		}
 
 		return new ArrayList<>();
@@ -30,9 +30,9 @@ public class ShowAdapter {
 				.showDate(showEntity.getShowDate())
 				.showTime(showEntity.getShowTime())
 				.rateMultiplier(showEntity.getRateMultiplier())
-				.movie(MovieAdapter.toDto(showEntity.getMovie()))
-				.theatre(TheaterAdapter.toDto(showEntity.getTheater()))
-				.seats(ShowSeatsAdapter.toDto(showEntity.getSeats()))
+				.movie(MovieMapper.toDto(showEntity.getMovie()))
+				.theatre(TheaterMapper.toDto(showEntity.getTheater()))
+				.seats(ShowSeatsMapper.toDto(showEntity.getSeats()))
 				.createdAt(showEntity.getCreatedAt())
 				.updatedAt(showEntity.getUpdatedAt())
 				.build();

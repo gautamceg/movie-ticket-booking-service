@@ -16,11 +16,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import java.util.Set;
 
-/**
- * @author naveen
- *
- * @date 05-Sep-2019
- */
+
 @Getter
 @Setter
 @NoArgsConstructor

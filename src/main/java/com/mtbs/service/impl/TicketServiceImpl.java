@@ -3,17 +3,17 @@
  */
 package com.mtbs.service.impl;
 
-import com.mtbs.adapter.TicketAdapter;
+import com.mtbs.mapper.TicketMapper;
 import com.mtbs.dto.BookTicketRequestDto;
 import com.mtbs.dto.TicketDto;
 import com.mtbs.exception.DependencyException;
-import com.mtbs.model.ShowEntity;
-import com.mtbs.model.ShowSeatsEntity;
-import com.mtbs.model.TicketEntity;
-import com.mtbs.model.UserEntity;
-import com.mtbs.repository.ShowRepository;
-import com.mtbs.repository.TicketRepository;
-import com.mtbs.repository.UserRepository;
+import com.mtbs.dao.entity.ShowEntity;
+import com.mtbs.dao.entity.ShowSeatsEntity;
+import com.mtbs.dao.entity.TicketEntity;
+import com.mtbs.dao.entity.UserEntity;
+import com.mtbs.dao.repository.ShowRepository;
+import com.mtbs.dao.repository.TicketRepository;
+import com.mtbs.dao.repository.UserRepository;
 import com.mtbs.service.TicketService;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.collections4.CollectionUtils;
@@ -28,11 +28,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-/**
- * @author naveen
- *
- * @date 05-Sep-2019
- */
+
 @Log4j2
 @Service
 public class TicketServiceImpl implements TicketService {
@@ -126,7 +122,7 @@ public class TicketServiceImpl implements TicketService {
 
 		ticketEntity = ticketRepository.save(ticketEntity);
 
-		return TicketAdapter.toDto(ticketEntity);
+		return TicketMapper.toDto(ticketEntity);
 	}
 
 	@Override
@@ -140,7 +136,7 @@ public class TicketServiceImpl implements TicketService {
 			throw new EntityNotFoundException("Ticket Not Found with ID: " + id);
 		}
 
-		return TicketAdapter.toDto(ticketEntity.get());
+		return TicketMapper.toDto(ticketEntity.get());
 	}
 
 }

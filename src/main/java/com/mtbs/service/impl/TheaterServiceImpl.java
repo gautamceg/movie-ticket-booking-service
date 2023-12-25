@@ -3,13 +3,13 @@
  */
 package com.mtbs.service.impl;
 
-import com.mtbs.adapter.TheaterAdapter;
+import com.mtbs.mapper.TheaterMapper;
 import com.mtbs.dto.TheaterDto;
 import com.mtbs.enums.SeatType;
-import com.mtbs.model.TheaterEntity;
-import com.mtbs.model.TheaterSeatsEntity;
-import com.mtbs.repository.TheaterRepository;
-import com.mtbs.repository.TheaterSeatsRepository;
+import com.mtbs.dao.entity.TheaterEntity;
+import com.mtbs.dao.entity.TheaterSeatsEntity;
+import com.mtbs.dao.repository.TheaterRepository;
+import com.mtbs.dao.repository.TheaterSeatsRepository;
 import com.mtbs.service.TheaterService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * @author naveen
- *
- * @date 05-Sep-2019
- */
+
 @Log4j2
 @Service
 public class TheaterServiceImpl implements TheaterService {
@@ -39,7 +35,7 @@ public class TheaterServiceImpl implements TheaterService {
 	public TheaterDto addTheater(TheaterDto theaterDto) {
 		log.info("Adding New Theater: " + theaterDto);
 
-		TheaterEntity theaterEntity = TheaterAdapter.toEntity(theaterDto);
+		TheaterEntity theaterEntity = TheaterMapper.toEntity(theaterDto);
 
 		theaterEntity.getSeats().addAll(getTheaterSeats());
 
@@ -51,7 +47,7 @@ public class TheaterServiceImpl implements TheaterService {
 
 		log.info("Added New User [id: " + theaterEntity.getId() + ", Name: " + theaterEntity.getName() + "]");
 
-		return TheaterAdapter.toDto(theaterEntity);
+		return TheaterMapper.toDto(theaterEntity);
 	}
 
 	private List<TheaterSeatsEntity> getTheaterSeats() {
@@ -92,7 +88,7 @@ public class TheaterServiceImpl implements TheaterService {
 			throw new EntityNotFoundException("Theater Not Found with ID: " + id);
 		}
 
-		return TheaterAdapter.toDto(theaterEntity.get());
+		return TheaterMapper.toDto(theaterEntity.get());
 	}
 
 }

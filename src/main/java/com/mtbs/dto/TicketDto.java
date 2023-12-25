@@ -12,11 +12,7 @@ import lombok.ToString;
 
 import java.util.Date;
 
-/**
- * @author naveen
- *
- * @date 05-Sep-2019
- */
+
 @Getter
 @Setter
 @NoArgsConstructor

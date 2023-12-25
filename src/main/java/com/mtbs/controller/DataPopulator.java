@@ -7,19 +7,19 @@ import com.mtbs.enums.CertificateType;
 import com.mtbs.enums.MovieLanguage;
 import com.mtbs.enums.SeatType;
 import com.mtbs.enums.TheaterType;
-import com.mtbs.model.MovieEntity;
-import com.mtbs.model.ShowEntity;
-import com.mtbs.model.ShowSeatsEntity;
-import com.mtbs.model.TheaterEntity;
-import com.mtbs.model.TheaterSeatsEntity;
-import com.mtbs.model.UserEntity;
-import com.mtbs.repository.MovieRepository;
-import com.mtbs.repository.ShowRepository;
-import com.mtbs.repository.ShowSeatsRepository;
-import com.mtbs.repository.TheaterRepository;
-import com.mtbs.repository.TheaterSeatsRepository;
-import com.mtbs.repository.TicketRepository;
-import com.mtbs.repository.UserRepository;
+import com.mtbs.dao.entity.MovieEntity;
+import com.mtbs.dao.entity.ShowEntity;
+import com.mtbs.dao.entity.ShowSeatsEntity;
+import com.mtbs.dao.entity.TheaterEntity;
+import com.mtbs.dao.entity.TheaterSeatsEntity;
+import com.mtbs.dao.entity.UserEntity;
+import com.mtbs.dao.repository.MovieRepository;
+import com.mtbs.dao.repository.ShowRepository;
+import com.mtbs.dao.repository.ShowSeatsRepository;
+import com.mtbs.dao.repository.TheaterRepository;
+import com.mtbs.dao.repository.TheaterSeatsRepository;
+import com.mtbs.dao.repository.TicketRepository;
+import com.mtbs.dao.repository.UserRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -77,25 +77,25 @@ public class DataPopulator {
 
 		log.info("Adding Starting Shows");
 
-		UserEntity userEntity = UserEntity.builder().name("Test").mobile("1234567890").build();
+		UserEntity userEntity = UserEntity.builder().name("Gautam").mobile("1234567890").build();
 
 		userRepository.save(userEntity);
 
-		TheaterEntity pvrDelhi = getTheater("PVR", "Delhi", "Rajori Garden");
-		TheaterEntity pvrGurugram = getTheater("PVR", "Gurugram", "MG Road");
-		TheaterEntity carnivalDelhi = getTheater("Carnival", "Delhi", "Subhash Garden");
+		TheaterEntity pvrBengaluru = getTheater("PVR", "Bengaluru", "HSR Layout");
+		TheaterEntity pvrHyd = getTheater("PVR", "Hyderabad", "MG Road");
+		TheaterEntity cinePolisPune = getTheater("Cinepolis", "Pune", "Hinjewadi");
 
 		MovieEntity spidermanMovie = getMovie("Spiderman", MovieLanguage.ENGLISH, CertificateType.UA, LocalDate.now());
 		MovieEntity batmanMovie = getMovie("Batman", MovieLanguage.ENGLISH, CertificateType.UA, LocalDate.now().minusDays(1));
 
 		List<ShowEntity> showEntities = new ArrayList<>();
 
-		showEntities.add(getShow(LocalDate.now(), LocalTime.NOON, 1.0f, pvrDelhi, spidermanMovie));
-		showEntities.add(getShow(LocalDate.now(), LocalTime.NOON, 1.1f, pvrGurugram, spidermanMovie));
-		showEntities.add(getShow(LocalDate.now().plusDays(1), LocalTime.NOON, 1.0f, pvrDelhi, spidermanMovie));
-		showEntities.add(getShow(LocalDate.now().plusDays(1), LocalTime.NOON, 1.4f, pvrGurugram, spidermanMovie));
-		showEntities.add(getShow(LocalDate.now(), LocalTime.NOON, 1.2f, carnivalDelhi, spidermanMovie));
-		showEntities.add(getShow(LocalDate.now(), LocalTime.NOON.plusHours(1), 1.5f, carnivalDelhi, batmanMovie));
+		showEntities.add(getShow(LocalDate.now(), LocalTime.NOON, 1.0f, pvrBengaluru, spidermanMovie));
+		showEntities.add(getShow(LocalDate.now(), LocalTime.NOON, 1.1f, pvrHyd, spidermanMovie));
+		showEntities.add(getShow(LocalDate.now().plusDays(1), LocalTime.NOON, 1.0f, pvrBengaluru, spidermanMovie));
+		showEntities.add(getShow(LocalDate.now().plusDays(1), LocalTime.NOON, 1.4f, pvrHyd, spidermanMovie));
+		showEntities.add(getShow(LocalDate.now(), LocalTime.NOON, 1.2f, cinePolisPune, spidermanMovie));
+		showEntities.add(getShow(LocalDate.now(), LocalTime.NOON.plusHours(1), 1.5f, cinePolisPune, batmanMovie));
 
 		showsRepository.saveAll(showEntities);
 

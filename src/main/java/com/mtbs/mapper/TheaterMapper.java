@@ -1,13 +1,13 @@
 
-package com.mtbs.adapter;
+package com.mtbs.mapper;
 
 import com.mtbs.dto.TheaterDto;
-import com.mtbs.model.TheaterEntity;
+import com.mtbs.dao.entity.TheaterEntity;
 import lombok.experimental.UtilityClass;
 
 
 @UtilityClass
-public class TheaterAdapter {
+public class TheaterMapper {
 
 	public static TheaterEntity toEntity(TheaterDto theaterDto) {
 

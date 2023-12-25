@@ -17,11 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.constraints.Min;
 
-/**
- * @author naveen
- *
- * @date 05-Sep-2019
- */
 @Log4j2
 @RestController
 @RequestMapping("movie")

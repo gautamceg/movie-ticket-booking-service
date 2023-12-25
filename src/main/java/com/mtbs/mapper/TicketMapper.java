@@ -1,13 +1,13 @@
 
-package com.mtbs.adapter;
+package com.mtbs.mapper;
 
 import com.mtbs.dto.TicketDto;
-import com.mtbs.model.TicketEntity;
+import com.mtbs.dao.entity.TicketEntity;
 import lombok.experimental.UtilityClass;
 
 
 @UtilityClass
-public class TicketAdapter {
+public class TicketMapper {
 
 	public static TicketEntity toEntity(TicketDto ticketDto) {
 
@@ -24,7 +24,7 @@ public class TicketAdapter {
 				.id(ticketEntity.getId())
 				.allottedSeats(ticketEntity.getAllottedSeats())
 				.amount(ticketEntity.getAmount())
-				.show(ShowAdapter.toDto(ticketEntity.getShow()))
+				.show(ShowMapper.toDto(ticketEntity.getShow()))
 				.build();
 	}
 

@@ -1,13 +1,13 @@
 
-package com.mtbs.adapter;
+package com.mtbs.mapper;
 
 import com.mtbs.dto.MovieDto;
-import com.mtbs.model.MovieEntity;
+import com.mtbs.dao.entity.MovieEntity;
 import lombok.experimental.UtilityClass;
 
 
 @UtilityClass
-public class MovieAdapter {
+public class MovieMapper {
 
 	public static MovieEntity toEntity(MovieDto movieDto) {
 

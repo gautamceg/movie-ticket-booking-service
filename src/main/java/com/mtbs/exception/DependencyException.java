@@ -5,11 +5,7 @@ package com.mtbs.exception;
 
 import lombok.Getter;
 
-/**
- * @author naveen
- *
- * @date 05-Sep-2019
- */
+
 @Getter
 public class DependencyException extends RuntimeException {
 

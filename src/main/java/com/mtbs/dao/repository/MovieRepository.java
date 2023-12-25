@@ -1,7 +1,7 @@
-package com.mtbs.repository;
+package com.mtbs.dao.repository;
 
 import com.mtbs.enums.MovieLanguage;
-import com.mtbs.model.MovieEntity;
+import com.mtbs.dao.entity.MovieEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;

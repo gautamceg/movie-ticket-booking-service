@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.mtbs.model;
+package com.mtbs.dao.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import jakarta.persistence.CascadeType;
@@ -26,8 +25,6 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 
@@ -36,50 +33,37 @@ import java.util.List;
 @Setter
 @Entity
 @EntityListeners(value = { AuditingEntityListener.class })
-@Table(name = "shows")
+@Table(name = "tickets")
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
 @ToString
-public class ShowEntity {
+public class TicketEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	@Column(name = "show_date", columnDefinition = "DATE", nullable = false)
-	private LocalDate showDate;
+	@Column(name = "alloted_seats", nullable = false)
+	private String allottedSeats;
 
-	@Column(name = "show_time", columnDefinition = "TIME", nullable = false)
-	private LocalTime showTime;
+	@Column(name = "amount", nullable = false)
+	private double amount;
 
-	@Column(name = "rate_multiplier", columnDefinition = "float(2,1) default 1.0", nullable = false)
-	private float rateMultiplier;
-
-	@Temporal(TemporalType.TIMESTAMP)
 	@CreatedDate
-	@Column(name = "created_at")
-	private Date createdAt;
-
 	@Temporal(TemporalType.TIMESTAMP)
-	@LastModifiedDate
-	@Column(name = "updated_at")
-	private Date updatedAt;
+	@Column(name = "booked_at", nullable = false)
+	private Date bookedAt;
 
 	@ManyToOne
 	@JsonIgnore
-	private MovieEntity movie;
+	private UserEntity user;
 
 	@ManyToOne
 	@JsonIgnore
-	private TheaterEntity theater;
+	private ShowEntity show;
 
-	@OneToMany(mappedBy = "show", cascade = CascadeType.ALL)
-	@JsonIgnore
-	private List<TicketEntity> tickets;
-
-	@OneToMany(mappedBy = "show", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "seatNumber", cascade = CascadeType.ALL)
 	@JsonIgnore
 	private List<ShowSeatsEntity> seats;
-
 }

@@ -13,11 +13,7 @@ import lombok.ToString;
 import jakarta.validation.constraints.NotBlank;
 import java.util.List;
 
-/**
- * @author naveen
- *
- * @date 05-Sep-2019
- */
+
 @Getter
 @Setter
 @NoArgsConstructor

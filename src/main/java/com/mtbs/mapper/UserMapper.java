@@ -1,13 +1,13 @@
 
-package com.mtbs.adapter;
+package com.mtbs.mapper;
 
 import com.mtbs.dto.UserDto;
-import com.mtbs.model.UserEntity;
+import com.mtbs.dao.entity.UserEntity;
 import lombok.experimental.UtilityClass;
 
 
 @UtilityClass
-public class UserAdapter {
+public class UserMapper {
 
 	public static UserEntity toEntity(UserDto userDto) {
 
