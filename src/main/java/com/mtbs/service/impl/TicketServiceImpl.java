@@ -81,7 +81,7 @@ public class TicketServiceImpl implements TicketService {
 			throw new DependencyException("Seats Not Available for Booking");
 		}
 
-		log.info("Seats: " + requestedSeats + " are avaialble in Show: " + bookTicketRequestDto.getShowId() + " for booking to User " + bookTicketRequestDto.getUserId());
+		log.info("Seats: " + requestedSeats + " are available in Show: " + bookTicketRequestDto.getShowId() + " for booking to User " + bookTicketRequestDto.getUserId());
 
 		TicketEntity ticketEntity =
 				TicketEntity.builder()
@@ -105,6 +105,7 @@ public class TicketServiceImpl implements TicketService {
 
 		ticketEntity.setAmount(amount);
 		ticketEntity.setAllottedSeats(allotedSeats);
+		ticketEntity.setBookedAt(new Date());
 
 		if (CollectionUtils.isEmpty(optionalUser.get().getTicketEntities())) {
 			optionalUser.get().setTicketEntities(new ArrayList<>());

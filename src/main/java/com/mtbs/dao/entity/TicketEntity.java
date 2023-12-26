@@ -63,7 +63,7 @@ public class TicketEntity {
 	@JsonIgnore
 	private ShowEntity show;
 
-	@OneToMany(mappedBy = "seatNumber", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL)
 	@JsonIgnore
 	private List<ShowSeatsEntity> seats;
 }
