@@ -5,6 +5,7 @@ package com.mtbs.controller;
 
 import com.mtbs.dto.MovieDto;
 import com.mtbs.service.MovieService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,8 @@ public class MovieController {
 	@Autowired
 	private MovieService movieService;
 
-	@PostMapping("add")
+	@Operation(summary = "Add movie")
+	@PostMapping
 	public ResponseEntity<MovieDto> addMovie(@RequestBody MovieDto movieDto) {
 
 		log.info("Received Request to add new movie: " + movieDto);
@@ -33,6 +35,7 @@ public class MovieController {
 		return ResponseEntity.ok(movieService.addMovie(movieDto));
 	}
 
+	@Operation(summary = "Get movie by id")
 	@GetMapping("{id}")
 	public ResponseEntity<MovieDto> getUser(@PathVariable(name = "id") @Min(value = 1, message = "Movie Id Cannot be -ve") long id) {
 

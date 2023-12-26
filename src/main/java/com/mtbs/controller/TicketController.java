@@ -6,6 +6,7 @@ package com.mtbs.controller;
 import com.mtbs.dto.BookTicketRequestDto;
 import com.mtbs.dto.TicketDto;
 import com.mtbs.service.TicketService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +27,8 @@ public class TicketController {
 	@Autowired
 	private TicketService ticketService;
 
-	@PostMapping("book")
+	@Operation(summary = "Book ticket")
+	@PostMapping
 	public ResponseEntity<TicketDto> bookTicket(@RequestBody BookTicketRequestDto bookTicketRequestDto) {
 
 		log.info("Received Request to book ticket: " + bookTicketRequestDto);
@@ -34,6 +36,7 @@ public class TicketController {
 		return ResponseEntity.ok(ticketService.bookTicket(bookTicketRequestDto));
 	}
 
+	@Operation(summary = "Get ticket by id")
 	@GetMapping("{id}")
 	public ResponseEntity<TicketDto> getTicket(@PathVariable(name = "id") @Min(value = 1, message = "Ticket Id Cannot be -ve") long id) {
 

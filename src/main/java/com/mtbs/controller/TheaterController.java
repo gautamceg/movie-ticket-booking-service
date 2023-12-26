@@ -5,6 +5,7 @@ package com.mtbs.controller;
 
 import com.mtbs.dto.TheaterDto;
 import com.mtbs.service.TheaterService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,8 @@ public class TheaterController {
 	@Autowired
 	private TheaterService theaterService;
 
-	@PostMapping("add")
+	@Operation(summary = "Add theater")
+	@PostMapping
 	public ResponseEntity<TheaterDto> addUser(@RequestBody TheaterDto theaterDto) {
 
 		log.info("Received Request to add new theater: " + theaterDto);
@@ -33,6 +35,7 @@ public class TheaterController {
 		return ResponseEntity.ok(theaterService.addTheater(theaterDto));
 	}
 
+	@Operation(summary = "Get theater by id")
 	@GetMapping("{id}")
 	public ResponseEntity<TheaterDto> getUser(@PathVariable(name = "id") @Min(value = 1, message = "Theater Id Cannot be -ve") long id) {
 

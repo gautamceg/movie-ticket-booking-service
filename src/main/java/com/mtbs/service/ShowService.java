@@ -14,6 +14,10 @@ public interface ShowService {
 
 	ShowDto addShow(ShowDto showDto);
 
+	ShowDto updateShow(ShowDto showDto, long showId);
+
+	void deleteShow(long showId);
+
 	PageResponse<ShowDto> searchShows(String movieName, String city, LocalDate showDate, LocalTime showTime, int pageNo, int limit);
 
 }

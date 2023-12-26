@@ -82,6 +82,44 @@ public class ShowServiceImpl implements ShowService {
 		return ShowMapper.toDto(showEntity);
 	}
 
+	@Override
+	public ShowDto updateShow(ShowDto showDto, long showId) {
+		Optional<MovieEntity> optionalMovie = movieRepository.findById(showId);
+
+		if (!optionalMovie.isPresent()) {
+			throw new DependencyException("Movie Not Found with ID: " + showId + " to add New Show");
+		}
+
+		Optional<TheaterEntity> optionalTheater = theaterRepository.findById(showDto.getTheatre().getId());
+
+		if (!optionalTheater.isPresent()) {
+			throw new DependencyException("Theater Not Found with ID: " + showDto.getMovie().getId() + " to update Show");
+		}
+
+		log.info("Updating the Show: " + showDto);
+		showDto.setId(showId);
+		ShowEntity showEntity = ShowMapper.toEntity(showDto);
+
+		showEntity.setMovie(optionalMovie.get());
+		showEntity.setTheater(optionalTheater.get());
+		showEntity.setSeats(generateShowSeats(showEntity.getTheater().getSeats(), showEntity));
+
+		for (ShowSeatsEntity seatsEntity : showEntity.getSeats()) {
+			seatsEntity.setShow(showEntity);
+		}
+
+		showEntity = showsRepository.save(showEntity);
+
+		log.info("Successfully Updated the Show [ID: " + showEntity.getId() + ", ShowDate: " + showEntity.getShowDate() + ", ShowTime: " + showEntity.getShowTime() + "]");
+
+		return ShowMapper.toDto(showEntity);
+	}
+
+	@Override
+	public void deleteShow(long showId) {
+		showsRepository.deleteById(showId);
+	}
+
 	private List<ShowSeatsEntity> generateShowSeats(List<TheaterSeatsEntity> theaterSeatsEntities, ShowEntity showEntity) {
 
 		List<ShowSeatsEntity> showSeatsEntities = new ArrayList<>();

@@ -6,13 +6,16 @@ package com.mtbs.controller;
 import com.mtbs.dto.PageResponse;
 import com.mtbs.dto.ShowDto;
 import com.mtbs.service.ShowService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,6 +34,7 @@ public class ShowController {
 	@Autowired
 	private ShowService showService;
 
+	@Operation(summary = "Search show")
 	@GetMapping("/search/{pageNo}/{limit}")
 	public ResponseEntity<PageResponse<ShowDto>> search(
 			@PathVariable(name = "pageNo") @Min(value = 1, message = "Page No Cannot be less than 1") int pageNo,
@@ -45,10 +49,30 @@ public class ShowController {
 		return ResponseEntity.ok(showService.searchShows(movieName, city, showDate, showTime, pageNo, limit));
 	}
 
-	@PostMapping("add")
+	@Operation(summary = "Add show")
+	@PostMapping
 	public ResponseEntity<ShowDto> addShow(@RequestBody ShowDto showDto) {
 
 		log.info("Received Request to add new show: " + showDto);
+
+		return ResponseEntity.ok(showService.addShow(showDto));
+	}
+
+	@Operation(summary = "Update show")
+	@PutMapping("/{showId}")
+	public ResponseEntity<ShowDto> updateShow(@RequestBody ShowDto showDto, @PathVariable long showId) {
+
+		log.info("Received Request to update existing show: " + showDto);
+
+		return ResponseEntity.ok(showDto);
+	}
+
+	@Operation(summary = "Delete show")
+	@DeleteMapping("/{showId}")
+	public ResponseEntity<ShowDto> deleteShow(@RequestBody ShowDto showDto, @PathVariable long showId) {
+
+		log.info("Received Request to delete existing show: " + showDto);
+		showService.deleteShow(showId);
 
 		return ResponseEntity.ok(showDto);
 	}

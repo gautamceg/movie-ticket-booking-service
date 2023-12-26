@@ -5,6 +5,7 @@ package com.mtbs.controller;
 
 import com.mtbs.dto.UserDto;
 import com.mtbs.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,8 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	@PostMapping("add")
+	@Operation(summary = "Add user")
+	@PostMapping
 	public ResponseEntity<UserDto> addUser(@RequestBody UserDto userDto) {
 
 		log.info("Received Request to add new user: " + userDto);
@@ -33,6 +35,7 @@ public class UserController {
 		return ResponseEntity.ok(userService.addUser(userDto));
 	}
 
+	@Operation(summary = "Get user by id")
 	@GetMapping("{id}")
 	public ResponseEntity<UserDto> getUser(@PathVariable(name = "id") @Min(value = 1, message = "User Id Cannot be -ve") long id) {
 
